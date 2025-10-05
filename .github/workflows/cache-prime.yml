@@ -1,0 +1,29 @@
+name: Cache Prime CI
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  cache-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Cache dependencies
+        id: cache-deps
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip  # Replace with your dependency path as needed
+          key: cache-f1ae329
+
+      - name: prime-cache-f1ae329
+        run: |
+          if [ "${{ steps.cache-deps.outputs.cache-hit }}" = "true" ]; then
+            echo "Cache hit for cache-f1ae329"
+          else
+            echo "Cache miss for cache-f1ae329"
+          fi
